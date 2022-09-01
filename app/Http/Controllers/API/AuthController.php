@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -24,5 +25,23 @@ class AuthController extends Controller
         return response()->json([
             'value' => 'true'
         ]);
+    }
+
+
+    public function prijava(Request $request)
+    {
+
+        if (!Auth::attempt($request->only('username', 'password'))) {
+            return;
+        } else {
+
+            $user = User::where('username', $request['username'])->firstOrFail();
+
+            $user->createToken("LGN_" . $user->ime_prezime . "_TOKEN_" . $user->username)->plainTextToken;
+
+            return response()->json([
+                'value' => 'true'
+            ]);
+        }
     }
 }
