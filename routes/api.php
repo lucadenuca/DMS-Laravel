@@ -21,6 +21,8 @@ Route::post('prijava', [AuthController::class, 'prijava']);
 Route::post('odjava', [AuthController::class, 'odjava']);
 
 Route::post('upload', [DokController::class, 'upload']);
+Route::get('get-documents/{id}', [DokController::class, 'getDocuments']);
+Route::delete('delete-document/{id}', [DokController::class, 'deleteDocument']);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Dokument;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class DokController extends Controller
 {
@@ -26,9 +26,29 @@ class DokController extends Controller
             $dok->putanja = $putanja;
         }
 
-        LOG::debug($dok);
 
         $dok->save();
+
+        return response()->json([
+            'value' => 'true'
+        ]);
+    }
+
+
+
+    public function getDocuments($id)
+    {
+        $documents = DB::table('dokuments')->where('korisnik_id', $id)->get();
+
+        return response()->json([
+            'documents' => $documents
+        ]);
+    }
+
+
+    public function deleteDocument($id)
+    {
+        DB::table('dokuments')->where('id', $id)->delete();
 
         return response()->json([
             'value' => 'true'
