@@ -50,7 +50,8 @@ class DokController extends Controller
 
     public function deleteDocument($id)
     {
-        $putanja = DB::table('dokuments')->where('id', $id)->first();
+        $fajl = DB::table('dokuments')->where('id', $id)->first();
+        $putanja = $fajl->putanja;
         File::delete($putanja);
 
         DB::table('dokuments')->where('id', $id)->delete();

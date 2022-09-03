@@ -23,7 +23,7 @@ class AuthController extends Controller
         $user->createToken("REG_" . $user->ime_prezime . "_TOKEN_" . $user->username)->plainTextToken;
 
         return response()->json([
-            'value' => 'true'
+            'value' => true
         ]);
     }
 
@@ -40,8 +40,8 @@ class AuthController extends Controller
             $token = $user->createToken("LGN_" . $user->ime_prezime . "_TOKEN_" . $user->username)->plainTextToken;
 
             return response()->json([
-                'value' => 'true',
-                'id' => $user->id,  
+                'value' => true,
+                'id' => $user->id,
                 'username' => $request->username,
                 'token' => $token,
                 'vrsta_korisnika' => $user->vrsta_korisnika
@@ -55,7 +55,7 @@ class AuthController extends Controller
         auth()->user()->tokens()->delete();
 
         return response()->json([
-            'value' => 'true'
+            'value' => true
         ]);
     }
 }
