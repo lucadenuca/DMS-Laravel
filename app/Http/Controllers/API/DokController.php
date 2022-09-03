@@ -126,4 +126,48 @@ class DokController extends Controller
             'documents' => $documents
         ]);
     }
+
+
+
+
+    public function searchDocuments($id, $input)
+    {
+        $documents = DB::table('dokuments')
+            ->where('korisnik_id', $id)
+            ->where(function ($query) use ($input) {
+                $query->where('naziv', 'like', "%$input%")
+                    ->orWhere('kategorija', 'like', "%$input%")
+                    ->orWhere('opis', 'like', "%$input%")
+                    ->orWhere('putanja', 'like', "%$input%")->get();
+            })->get();
+
+        return response()->json([
+            'documents' => $documents
+        ]);
+    }
+
+
+    public function sortDocumentsAdmin($kolona, $poredak)
+    {
+        $documents = DB::table('dokuments')
+            ->orderBy($kolona, $poredak)
+            ->get();
+
+        return response()->json([
+            'documents' => $documents
+        ]);
+    }
+
+
+    public function sortDocuments($id, $kolona, $poredak)
+    {
+        $documents = DB::table('dokuments')
+            ->where('korisnik_id', $id)
+            ->orderBy($kolona, $poredak)
+            ->get();
+
+        return response()->json([
+            'documents' => $documents
+        ]);
+    }
 }

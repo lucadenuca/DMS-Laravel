@@ -27,6 +27,9 @@ Route::get('edit/{id}', [DokController::class, 'editDocument']);
 Route::post('update/{id}', [DokController::class, 'updateDocument']);
 Route::get('get-documents', [DokController::class, 'getAllDocuments']);
 Route::get('search-documents-admin/{input}', [DokController::class, 'searchDocumentsAdmin']);
+Route::get('search-documents/{id}/{input}', [DokController::class, 'searchDocuments']);
+Route::get('sort-documents-admin/{kolona}/{poredak}', [DokController::class, 'sortDocumentsAdmin']);
+Route::get('sort-documents/{id}/{kolona}/{poredak}', [DokController::class, 'sortDocuments']);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
