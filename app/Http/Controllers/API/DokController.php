@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
+
 class DokController extends Controller
 {
     public function upload(Request $request)
@@ -31,7 +32,7 @@ class DokController extends Controller
         $dok->save();
 
         return response()->json([
-            'value' => 'true'
+            'value' => true
         ]);
     }
 
@@ -55,7 +56,7 @@ class DokController extends Controller
         DB::table('dokuments')->where('id', $id)->delete();
 
         return response()->json([
-            'value' => 'true'
+            'value' => true
         ]);
     }
 
@@ -93,5 +94,36 @@ class DokController extends Controller
                 'kategorija' => $request->kategorija,
                 'putanja' => $putanja
             ]);
+
+        return response()->json([
+            'value' => true
+        ]);
+    }
+
+
+
+    public function getAllDocuments()
+    {
+        $documents = DB::table('dokuments')->get();
+
+        return response()->json([
+            'documents' => $documents
+        ]);
+    }
+
+
+
+
+    public function searchDocumentsAdmin($input)
+    {
+        $documents = DB::table('dokuments')
+            ->where('naziv', 'like', "%$input%")
+            ->orWhere('kategorija', 'like', "%$input%")
+            ->orWhere('opis', 'like', "%$input%")
+            ->orWhere('putanja', 'like', "%$input%")->get();
+
+        return response()->json([
+            'documents' => $documents
+        ]);
     }
 }

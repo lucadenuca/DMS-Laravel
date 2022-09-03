@@ -25,7 +25,8 @@ Route::get('get-documents/{id}', [DokController::class, 'getDocuments']);
 Route::delete('delete-document/{id}', [DokController::class, 'deleteDocument']);
 Route::get('edit/{id}', [DokController::class, 'editDocument']);
 Route::post('update/{id}', [DokController::class, 'updateDocument']);
-
+Route::get('get-documents', [DokController::class, 'getAllDocuments']);
+Route::get('search-documents-admin/{input}', [DokController::class, 'searchDocumentsAdmin']);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
